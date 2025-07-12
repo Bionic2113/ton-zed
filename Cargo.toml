@@ -1,0 +1,13 @@
+[package]
+name = "zed_ton"
+version = "0.0.1"
+edition = "2021"
+publish = false
+license = "MIT"
+
+[lib]
+path = "src/ton.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "0.6.0"

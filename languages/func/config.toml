@@ -1,0 +1,4 @@
+name = "Func"
+grammar = "func"
+path_suffixes = ["fc"]
+line_comments = [";; "]

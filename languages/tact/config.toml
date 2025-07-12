@@ -1,0 +1,4 @@
+name = "Tact"
+grammar = "tact"
+path_suffixes = ["tact"]
+line_comments = ["// "]

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://zed.dev/schema/icon_themes/v0.2.0.json",
+  "name": "Ton Theme",
+  "author": "Bionic2113",
+  "themes": [
+    {
+      "name": "Ton Dark Theme",
+      "appearance": "dark",
+      "file_suffixes": {
+        "tolk": "tolk",
+        "fif": "fift",
+        "fc": "func",
+        "tact": "tact",
+        "tlb": "tlb"
+      },
+      "file_icons": {
+        "fift": { "path": "./icons/ton-icon.svg" },
+        "tolk": { "path": "./icons/ton-icon.svg" },
+        "func": { "path": "./icons/ton-icon.svg" },
+        "tact": { "path": "./icons/tact-dark.svg" },
+        "tlb": { "path": "./icons/icon-tlb-dark.svg" }
+      }
+    },
+    {
+      "name": "Ton Light Theme",
+      "appearance": "light",
+      "file_suffixes": {
+        "tolk": "tolk",
+        "fif": "fift",
+        "fc": "func",
+        "tact": "tact",
+        "tlb": "tlb"
+      },
+      "file_icons": {
+        "fift": { "path": "./icons/ton-icon.svg" },
+        "tolk": { "path": "./icons/ton-icon.svg" },
+        "func": { "path": "./icons/ton-icon.svg" },
+        "tact": { "path": "./icons/tact-dark.svg" },
+        "tlb": { "path": "./icons/icon-tlb-dark.svg" }
+      }
+    }
+  ]
+}
