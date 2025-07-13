@@ -1,6 +1,6 @@
 id = "ton"
 name = "ton"
-version = "0.1.0"
+version = "0.1.1"
 schema_version = 1
 authors = ["bionic2113 <https://t.me/bionic2113>"]
 description = "Ton languages support (Tolk, Tact, Func, Fift, TL-B)"
@@ -22,16 +22,15 @@ languages = ["TL-B"]
 name = "tact"
 languages = ["Tact"]
 
-# TODO(bionic2113): need add tree-sitter
 [language_servers.fift]
 name = "fift"
 languages = ["Fift"]
 icon = "./icons/ton-icon.svg"
 
-# TODO(bionic2113): need update
+# TODO(bionic2113): need change to official
 [grammars.tolk]
-repository = "https://github.com/nickshatilo/tree-sitter-tolk"
-rev = "5a9a9ee2b498acced9435289fda50ca4dcb7c979"
+repository = "https://github.com/Bionic2113/tree-sitter-tolk"
+rev = "c3c7ba98ee49bbfd4216c5e0df4c16b3a2096d1a"
 
 [grammars.func]
 repository = "https://github.com/tree-sitter-grammars/tree-sitter-func"
@@ -45,3 +44,8 @@ rev = "2c297bc02ae93b55f0216e94e34c76ea21c3ebe4"
 [grammars.tact]
 repository = "https://github.com/tact-lang/tree-sitter-tact"
 rev = "a6267c2091ed432c248780cec9f8d42c8766d9ad"
+
+# TODO(bionic2113): need change to official
+[grammars.fift]
+repository = "https://github.com/Bionic2113/tree-sitter-fift"
+rev = "72ca555044412129c1eb8a8639c345e838e63b63"

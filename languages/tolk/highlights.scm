@@ -11,6 +11,8 @@
 "true" @keyword
 "tolk" @keyword
 "const" @keyword
+"match" @keyword
+"lazy" @keyword
 "false" @keyword
 "throw" @keyword
 "redef" @keyword
@@ -66,6 +68,8 @@
 
 "->" @operator
 
+"type" @type
+"struct" @type
 
 (string_literal) @string
 (number_literal) @number
@@ -73,19 +77,19 @@
 
 (annotation) @attribute
 
+(identifier) @variable
+
 (function_declaration
   name: (identifier) @function)
+(dot_access
+  field: (identifier) @variable)
 (get_method_declaration
   name: (identifier) @function)
 (function_call
   callee: (identifier) @function)
 (function_call
   callee: (dot_access (identifier) (identifier) @function))
-(dot_access
-  field: (identifier) @variable)
 
 (type_identifier) @type
-
-(identifier) @variable
 
 (comment) @comment
