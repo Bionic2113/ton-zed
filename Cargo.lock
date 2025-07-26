@@ -744,6 +744,8 @@ dependencies = [
 name = "zed_ton"
 version = "0.0.1"
 dependencies = [
+ "serde",
+ "serde_json",
  "zed_extension_api",
 ]
 

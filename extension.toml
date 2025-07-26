@@ -47,3 +47,6 @@ rev = "a6267c2091ed432c248780cec9f8d42c8766d9ad"
 [grammars.fift]
 repository = "https://github.com/Bionic2113/tree-sitter-fift"
 rev = "72ca555044412129c1eb8a8639c345e838e63b63"
+
+[debug_adapters.ton]
+schema_path = "debug_adapter_schemas/ton.json"

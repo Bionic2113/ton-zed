@@ -1,6 +1,36 @@
+use serde::{Deserialize, Serialize};
+use serde_json::json;
+use std::collections::HashMap;
+use std::str::FromStr;
 use std::{env, fs};
+use std::{net::Ipv4Addr, time::Duration};
 use zed::LanguageServerId;
-use zed_extension_api::{self as zed, Result};
+use zed_extension_api::{
+    self as zed, resolve_tcp_template, DebugAdapterBinary, DebugConfig, DebugRequest,
+    DebugScenario, DebugTaskDefinition, Result, StartDebuggingRequestArguments,
+    StartDebuggingRequestArgumentsRequest, TcpArgumentsTemplate, Worktree,
+};
+
+const DEFAULT_TIMEOUT: Duration = Duration::from_secs(5);
+
+#[derive(Default, Serialize, Deserialize)]
+struct TonDebugConfig {
+    request: String,
+    #[serde(default)]
+    host: String,
+    command: Option<String>,
+    cwd: Option<String>,
+    args: Vec<String>,
+    env: HashMap<String, String>,
+    #[serde(rename = "stopOnEntry", default)]
+    stop_on_entry: bool,
+    #[serde(rename = "stopOnBreakpoint", default)]
+    stop_on_breakpoint: bool,
+    #[serde(rename = "stopOnStep", default)]
+    stop_on_step: Option<bool>,
+    #[serde(default)]
+    port: Option<u16>,
+}
 
 struct TonExtension {}
 
@@ -128,6 +158,91 @@ impl zed::Extension for TonExtension {
                 "--stdio".to_string(),
             ],
             env: Default::default(),
+        })
+    }
+
+    fn dap_request_kind(
+        &mut self,
+        _: String,
+        config: serde_json::Value,
+    ) -> Result<StartDebuggingRequestArgumentsRequest, String> {
+        config
+            .get("request")
+            .and_then(|v| {
+                v.as_str().and_then(|s| {
+                    s.eq("launch")
+                        .then(|| StartDebuggingRequestArgumentsRequest::Launch)
+                })
+            })
+            .ok_or_else(|| "Invalid config".into())
+    }
+
+    fn get_dap_binary(
+        &mut self,
+        adapter_name: String,
+        config: DebugTaskDefinition,
+        _: Option<String>,
+        worktree: &Worktree,
+    ) -> Result<DebugAdapterBinary, String> {
+        let configuration: serde_json::Value = serde_json::from_str(&config.config)
+            .map_err(|e| format!("`config` is not a valid JSON: {e}"))?;
+        let ton_config: TonDebugConfig = serde_json::from_value(configuration.clone())
+            .map_err(|e| format!("`config` is not a valid ton config: {e}"))?;
+
+        let tcp_connection = config.tcp_connection.unwrap_or(TcpArgumentsTemplate {
+            port: Some(ton_config.port.unwrap_or(42069)),
+            host: Some(
+                Ipv4Addr::from_str(ton_config.host.as_str())
+                    .unwrap_or(Ipv4Addr::LOCALHOST)
+                    .to_bits(),
+            ),
+            timeout: Some(DEFAULT_TIMEOUT.as_millis() as u64),
+        });
+
+        let connection = resolve_tcp_template(tcp_connection)?;
+
+        let request_type = self.dap_request_kind(adapter_name.clone(), configuration.clone())?;
+
+        let arguments = vec![];
+        Ok(DebugAdapterBinary {
+            command: None,
+            arguments,
+            connection: Some(connection),
+            cwd: None,
+            envs: worktree.shell_env(),
+            request_args: StartDebuggingRequestArguments {
+                configuration: configuration.to_string(),
+                request: request_type,
+            },
+        })
+    }
+    fn dap_config_to_scenario(&mut self, config: DebugConfig) -> Result<DebugScenario, String> {
+        let obj = match &config.request {
+            DebugRequest::Attach(_) => {
+                return Err("Ton adapter doesn't support attaching".into());
+            }
+            DebugRequest::Launch(launch_config) => json!({
+                "type": "tvm",
+                "request": "launch",
+                "program": launch_config.program,
+                "cwd": launch_config.cwd,
+                "args": launch_config.args,
+                "env": serde_json::Value::Object(
+                    launch_config.envs
+                        .iter()
+                        .map(|(k, v)| (k.clone(), v.to_owned().into()))
+                        .collect::<serde_json::Map<String, serde_json::Value>>(),
+                ),
+                "stopOnEntry": config.stop_on_entry.unwrap_or_default(),
+            }),
+        };
+
+        Ok(DebugScenario {
+            adapter: config.adapter,
+            label: config.label,
+            build: None,
+            config: obj.to_string(),
+            tcp_connection: None,
         })
     }
 }
