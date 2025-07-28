@@ -1,6 +1,6 @@
 id = "ton"
 name = "ton"
-version = "0.2.0"
+version = "0.3.0"
 schema_version = 1
 authors = ["bionic2113 <https://t.me/bionic2113>"]
 description = "Ton languages support (Tolk, Tact, Func, Fift, TL-B)"

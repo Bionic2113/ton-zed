@@ -18,3 +18,8 @@ npm install @tact-lang/compiler
 
 
 For other languages, it's currently necessary to have libraries with the correct paths. The easiest way to create such projects is by using [Blueprint](https://github.com/ton-org/blueprint).
+
+
+## Func debugger
+
+![Your browser does not support gif](FuncDebugger.gif)

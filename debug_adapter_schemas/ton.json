@@ -36,12 +36,12 @@
     },
     "stopOnBreakpoint": {
       "type": "boolean",
-      "description": "TODO(bionic2113): stopOnBreakpoint",
+      "description": "Whether to stop the stop the program immediately at the breakpoint",
       "default": false
     },
     "stopOnStep": {
       "type": "boolean",
-      "description": "TODO(bionic2113): stopOnStep",
+      "description": "Whether to stop the stop the program immediately on step",
       "default": false
     },
     "host": {
