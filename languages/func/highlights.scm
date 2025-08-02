@@ -1,20 +1,20 @@
 ; Include
 
-"#include" @include
+"#include" @attribute.include
 (include_path) @string
 
 ; Preproc
 
 [
   "#pragma"
-] @preproc
+] @attribute
 
 (pragma_directive
   [
     "version"
     "not-version"
     "test-version-set"
-  ] @preproc)
+  ] @attribute)
 
 ; Keywords
 
@@ -40,14 +40,14 @@
   "elseif"
   "elseifnot"
   "until"
-] @conditional
+] @keyword.conditional
 
 ; Exceptions
 
 [
   "try"
   "catch"
-] @exception
+] @keyword.exception
 
 ; Repeats
 
@@ -56,7 +56,7 @@
   "forall"
   "repeat"
   "while"
-] @repeat
+] @keyword.repeat
 
 ; Qualifiers
 [

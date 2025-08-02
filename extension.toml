@@ -1,8 +1,8 @@
-id = "ton"
-name = "ton"
-version = "0.3.0"
+id = "TON"
+name = "TON"
+version = "0.3.1"
 schema_version = 1
-authors = ["bionic2113 <https://t.me/bionic2113>"]
+authors = ["Shamil Shyhiev <https://t.me/bionic2113>"]
 description = "Ton languages support (Tolk, Tact, Func, Fift, TL-B)"
 repository = "https://github.com/Bionic2113/ton-zed"
 
@@ -38,7 +38,6 @@ rev = "f780ca55e65e7d7360d0229331763e16c452fc98"
 [grammars.tlb]
 repository = "https://github.com/nickshatilo/tree-sitter-tlb"
 rev = "2c297bc02ae93b55f0216e94e34c76ea21c3ebe4"
-
 
 [grammars.tact]
 repository = "https://github.com/tact-lang/tree-sitter-tact"
