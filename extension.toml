@@ -29,7 +29,7 @@ icon = "./icons/ton-icon.svg"
 
 [grammars.tolk]
 repository = "https://github.com/ton-blockchain/tree-sitter-tolk"
-rev = "ac7d442fe95ae3b34b3e99dc33e5da167d41a600"
+rev = "ed453967b45ef5a48865a96c7fd869ba5c1326ff"
 
 [grammars.func]
 repository = "https://github.com/tree-sitter-grammars/tree-sitter-func"
