@@ -81,14 +81,19 @@
 
 (function_declaration
   name: (identifier) @function)
-(dot_access
-  field: (identifier) @variable)
 (get_method_declaration
   name: (identifier) @function)
+
 (function_call
   callee: (identifier) @function)
+
+(dot_access
+  field: (identifier) @variable)
+
 (function_call
-  callee: (dot_access (identifier) (identifier) @function))
+  callee: (dot_access
+    ; (identifier) @variable
+    (identifier) @function))
 
 (type_identifier) @type
 
